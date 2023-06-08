@@ -24,7 +24,7 @@ object SpawnModelCommand : Command<CommandSourceStack> {
             return 0
         }
 
-        val model = EntityModel(context.source.entity!!.level as ServerLevel, format)
+        val model = EntityModel(context.source.level as ServerLevel, format)
         model.spawn(TransformUtil.mcToJoml(pos))
         model.rotateWithoutPartSet(Rotations(context.source.rotation.x, context.source.rotation.y, 0F))
         model.pos = pos
