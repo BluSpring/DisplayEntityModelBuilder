@@ -84,7 +84,11 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
 
             entity.yRot = angle
 
-            entity.moveTo(origin.x + ((partPos.x * cosValue) - (partPos.z * sinValue)).toDouble(), origin.y + partPos.y.toDouble(), origin.z + ((partPos.z * cosValue) + partPos.x * sinValue).toDouble())
+            entity.moveTo(
+                origin.x + ((partPos.x * cosValue) - (partPos.z * sinValue)).toDouble(),
+                origin.y + partPos.y.toDouble(),
+                origin.z + ((partPos.z * cosValue) + partPos.x * sinValue).toDouble()
+            )
         }
 
         hitBoxes.forEach { (_, hitBox) ->
