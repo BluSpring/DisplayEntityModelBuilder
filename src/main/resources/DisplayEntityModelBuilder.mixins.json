@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "xyz.bluspring.displayentitymodelbuilder.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "DisplayAccessor",
+    "InteractionAccessor",
+    "ItemDisplayAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

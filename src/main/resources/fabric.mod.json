@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "demb",
+  "version": "${version}",
+  "name": "DisplayEntityModelBuilder",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/BluSpring/DisplayEntityModelBuilder"
+  },
+  "license": "MIT",
+  "icon": "assets/demb/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "xyz.bluspring.displayentitymodelbuilder.DisplayEntityModelBuilder"
+    ]
+  },
+  "mixins": [
+    "DisplayEntityModelBuilder.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
