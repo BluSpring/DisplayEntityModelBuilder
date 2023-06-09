@@ -174,6 +174,8 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
             Vector3f(part.scale),
             null
         ))
+        (displayEntity as DisplayAccessor).callSetWidth(part.cullBox.x)
+        (displayEntity as DisplayAccessor).callSetHeight(part.cullBox.y)
 
         internalParts[part.id] = EntityModelPart(
             displayEntity,

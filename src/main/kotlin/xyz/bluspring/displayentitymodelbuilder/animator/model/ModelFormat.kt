@@ -6,6 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemStack
+import org.joml.Vector2f
 import org.joml.Vector3f
 
 data class ModelFormat(
@@ -20,7 +21,8 @@ data class ModelFormat(
         val origin: Vector3f,
         val rotation: Vector3f,
         val scale: Vector3f,
-        val parts: List<ModelPart>
+        val parts: List<ModelPart>,
+        val cullBox: Vector2f
     )
 
     data class HitBox(
@@ -60,10 +62,10 @@ data class ModelFormat(
 
                     hitBoxes.add(
                         HitBox(
-                        if (hitBoxData.has("id")) hitBoxData.get("id").asString else "root",
-                        if (hitBoxData.has("position")) arrayToVec3f(hitBoxData.get("position").asJsonArray) else Vector3f(),
-                        if (hitBoxData.has("size")) arrayToVec3f(hitBoxData.get("size").asJsonArray) else Vector3f(),
-                    )
+                            if (hitBoxData.has("id")) hitBoxData.get("id").asString else "root",
+                            if (hitBoxData.has("position")) arrayToVec3f(hitBoxData.get("position").asJsonArray) else Vector3f(),
+                            if (hitBoxData.has("size")) arrayToVec3f(hitBoxData.get("size").asJsonArray) else Vector3f(),
+                        )
                     )
                 }
             }
@@ -88,12 +90,17 @@ data class ModelFormat(
                         partData.getAsJsonArray("children").forEach {
                             this.add(loadPart(it.asJsonObject))
                         }
-                }
+                },
+                if (partData.has("cull_box")) arrayToVec2f(partData.get("cull_box").asJsonArray) else Vector2f(0.35f, 0.35f)
             )
         }
 
         private fun arrayToVec3f(collection: List<Float>): Vector3f {
             return Vector3f(collection[0], collection[1], collection[2])
+        }
+
+        private fun arrayToVec2f(array: JsonArray): Vector2f {
+            return Vector2f(array[0].asFloat, array[1].asFloat)
         }
 
         private fun arrayToVec3f(array: JsonArray): Vector3f {

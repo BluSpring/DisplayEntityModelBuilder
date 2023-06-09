@@ -15,4 +15,10 @@ public interface DisplayAccessor {
 
     @Invoker
     void callSetInterpolationDelay(int i);
+
+    @Invoker
+    void callSetWidth(float f);
+
+    @Invoker
+    void callSetHeight(float f);
 }
