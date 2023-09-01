@@ -35,7 +35,7 @@ dependencies {
 
     implementation(include("org.joml:joml:1.10.5"))
 
-    modRuntimeOnly "maven.modrinth:sodium:mc1.19.4-0.4.10"
+    modRuntimeOnly "maven.modrinth:sodium:mc1.20.1-0.5.2"
 }
 
 processResources {

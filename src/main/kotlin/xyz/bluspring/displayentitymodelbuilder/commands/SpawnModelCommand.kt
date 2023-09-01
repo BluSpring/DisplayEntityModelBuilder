@@ -31,7 +31,7 @@ object SpawnModelCommand : Command<CommandSourceStack> {
 
         EntityModelManager.register(model)
 
-        context.source.sendSuccess(Component.literal("Successfully spawned model $id with UUID ${model.uuid}"), false)
+        context.source.sendSystemMessage(Component.literal("Successfully spawned model $id with UUID ${model.uuid}"))
 
         return 1
     }

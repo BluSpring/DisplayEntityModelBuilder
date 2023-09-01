@@ -18,7 +18,7 @@ object RemoveEntityCommand : Command<CommandSourceStack> {
         }
 
         EntityModelManager.remove(entity)
-        context.source.sendSuccess(Component.literal("Removed entity $uuid"), false)
+        context.source.sendSystemMessage(Component.literal("Removed entity $uuid"))
 
         return 1
     }
