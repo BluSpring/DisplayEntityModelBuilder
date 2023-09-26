@@ -11,12 +11,6 @@ public interface DisplayAccessor {
     void callSetTransformation(Transformation transformation);
 
     @Invoker
-    void callSetInterpolationDuration(int i);
-
-    @Invoker
-    void callSetInterpolationDelay(int i);
-
-    @Invoker
     void callSetWidth(float f);
 
     @Invoker
