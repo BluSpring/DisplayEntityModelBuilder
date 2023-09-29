@@ -13,7 +13,8 @@ data class ModelFormat(
     val id: ResourceLocation,
     val items: Map<String, ItemStack>,
     val parts: List<ModelPart>,
-    val hitBoxes: List<HitBox>
+    val hitBoxes: List<HitBox>,
+    val tags: List<String>
 ) {
     data class ModelPart(
         val id: String,
@@ -70,11 +71,20 @@ data class ModelFormat(
                 }
             }
 
+            val tags = mutableListOf<String>()
+
+            if (data.has("tags")) {
+                data.getAsJsonArray("tags").forEach {
+                    tags.add(it.asString)
+                }
+            }
+
             return ModelFormat(
                 ResourceLocation(data.get("id").asString),
                 items,
                 parts,
-                hitBoxes
+                hitBoxes,
+                tags
             )
         }
 

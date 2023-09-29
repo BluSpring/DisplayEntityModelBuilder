@@ -147,6 +147,10 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
         (interaction as InteractionAccessor).callSetWidth(size.x)
         (interaction as InteractionAccessor).callSetHeight(size.y)
 
+        format.tags.forEach {
+            interaction.addTag(it)
+        }
+
         internalHitBoxes[hitBox.id] = EntityHitBox(interaction, hitBox)
 
         level.addFreshEntityWithPassengers(interaction)
@@ -176,6 +180,10 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
         ))
         (displayEntity as DisplayAccessor).callSetWidth(part.cullBox.x)
         (displayEntity as DisplayAccessor).callSetHeight(part.cullBox.y)
+
+        format.tags.forEach {
+            displayEntity.addTag(it)
+        }
 
         internalParts[part.id] = EntityModelPart(
             displayEntity,
