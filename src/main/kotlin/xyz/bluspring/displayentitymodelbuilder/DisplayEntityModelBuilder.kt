@@ -27,6 +27,9 @@ class DisplayEntityModelBuilder : ModInitializer {
             dispatcher.register(
                 Commands
                     .literal("spawnmodel")
+                    .requires {
+                        it.hasPermission(3)
+                    }
                     .then(
                         Commands
                             .argument("model", ResourceLocationArgument.id())
@@ -44,6 +47,9 @@ class DisplayEntityModelBuilder : ModInitializer {
             dispatcher.register(
                 Commands
                     .literal("movehere")
+                    .requires {
+                        it.hasPermission(3)
+                    }
                     .then(
                         Commands
                             .argument("entity", UuidArgument.uuid())
@@ -61,6 +67,9 @@ class DisplayEntityModelBuilder : ModInitializer {
             dispatcher.register(
                 Commands
                     .literal("microwave")
+                    .requires {
+                        it.hasPermission(3)
+                    }
                     .then(
                         Commands
                             .argument("entity", UuidArgument.uuid())
@@ -78,6 +87,9 @@ class DisplayEntityModelBuilder : ModInitializer {
             dispatcher.register(
                 Commands
                     .literal("removeentity")
+                    .requires {
+                        it.hasPermission(3)
+                    }
                     .then(
                         Commands
                             .argument("entity", UuidArgument.uuid())
