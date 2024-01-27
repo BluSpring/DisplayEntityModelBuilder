@@ -80,7 +80,7 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
 
         parts.forEach { (_, part) ->
             val entity = part.display
-            val partPos = Vector3f(part.part.origin).div(16F)
+            val partPos = Vector3f(if (format.followParentTransforms) part.part.originRelative else part.part.origin).div(16F)
 
             entity.yRot = angle
 
@@ -165,7 +165,7 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
         }
 
         val item = format.items[part.id]!!
-        val pos = Vector3f(part.origin).div(16F)
+        val pos = Vector3f(if (format.followParentTransforms) part.originRelative else part.origin).div(16F)
 
         val offsetPos = TransformUtil.jomlToMc(Vector3d(spawnPos).add(pos))
 
@@ -173,9 +173,9 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
 
         (displayEntity as ItemDisplayAccessor).callSetItemStack(item.copy())
         (displayEntity as DisplayAccessor).callSetTransformation(Transformation(
-            Vector3f(part.position).div(16F),
-            TransformUtil.toQuaternion(part.rotation),
-            Vector3f(part.scale),
+            Vector3f(if (format.followParentTransforms) part.posRelative else part.position).div(16F),
+            TransformUtil.toQuaternion(if (format.followParentTransforms) part.rotationRelative else part.rotation),
+            Vector3f(if (format.followParentTransforms) part.scaleRelative else part.scale),
             null
         ))
         (displayEntity as DisplayAccessor).callSetWidth(part.cullBox.x)

@@ -14,7 +14,8 @@ data class ModelFormat(
     val items: Map<String, ItemStack>,
     val parts: List<ModelPart>,
     val hitBoxes: List<HitBox>,
-    val tags: List<String>
+    val tags: List<String>,
+    val followParentTransforms: Boolean
 ) {
     data class ModelPart(
         val id: String,
@@ -24,7 +25,21 @@ data class ModelFormat(
         val scale: Vector3f,
         val parts: List<ModelPart>,
         val cullBox: Vector2f
-    )
+    ) {
+        var parent: ModelPart? = null
+
+        val originRelative: Vector3f
+            get() = Vector3f(origin).add(parent?.originRelative ?: Vector3f())
+
+        val posRelative: Vector3f
+            get() = Vector3f(position).add(parent?.posRelative ?: Vector3f())
+
+        val rotationRelative: Vector3f
+            get() = Vector3f(rotation).add(parent?.rotationRelative ?: Vector3f())
+
+        val scaleRelative: Vector3f
+            get() = Vector3f(scale).add(parent?.scaleRelative ?: Vector3f())
+    }
 
     data class HitBox(
         val id: String,
@@ -79,16 +94,19 @@ data class ModelFormat(
                 }
             }
 
+            val followParentTransforms = data.has("follow_parent_transforms") && data.get("follow_parent_transforms").asBoolean
+
             return ModelFormat(
                 ResourceLocation(data.get("id").asString),
                 items,
                 parts,
                 hitBoxes,
-                tags
+                tags,
+                followParentTransforms
             )
         }
 
-        private fun loadPart(partData: JsonObject): ModelPart {
+        private fun loadPart(partData: JsonObject, parent: ModelPart? = null): ModelPart {
             return ModelPart(
                 partData.get("id").asString,
                 if (partData.has("position")) arrayToVec3f(partData.get("position").asJsonArray) else Vector3f(),
@@ -102,7 +120,11 @@ data class ModelFormat(
                         }
                 },
                 if (partData.has("cull_box")) arrayToVec2f(partData.get("cull_box").asJsonArray) else Vector2f(0.35f, 0.35f)
-            )
+            ).apply {
+                for (part in this.parts) {
+                    part.parent = this
+                }
+            }
         }
 
         private fun arrayToVec3f(collection: List<Float>): Vector3f {

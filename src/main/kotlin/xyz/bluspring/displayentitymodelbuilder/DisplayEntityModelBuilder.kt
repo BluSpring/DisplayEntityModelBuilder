@@ -28,7 +28,7 @@ class DisplayEntityModelBuilder : ModInitializer {
                 Commands
                     .literal("spawnmodel")
                     .requires {
-                        it.hasPermission(3)
+                        it.hasPermission(2)
                     }
                     .then(
                         Commands
@@ -48,7 +48,7 @@ class DisplayEntityModelBuilder : ModInitializer {
                 Commands
                     .literal("movehere")
                     .requires {
-                        it.hasPermission(3)
+                        it.hasPermission(2)
                     }
                     .then(
                         Commands
@@ -68,7 +68,7 @@ class DisplayEntityModelBuilder : ModInitializer {
                 Commands
                     .literal("microwave")
                     .requires {
-                        it.hasPermission(3)
+                        it.hasPermission(2)
                     }
                     .then(
                         Commands
@@ -88,7 +88,7 @@ class DisplayEntityModelBuilder : ModInitializer {
                 Commands
                     .literal("removeentity")
                     .requires {
-                        it.hasPermission(3)
+                        it.hasPermission(2)
                     }
                     .then(
                         Commands
