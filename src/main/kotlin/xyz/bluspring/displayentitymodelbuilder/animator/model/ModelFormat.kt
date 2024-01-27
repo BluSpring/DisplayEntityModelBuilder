@@ -38,7 +38,7 @@ data class ModelFormat(
             get() = Vector3f(rotation).add(parent?.rotationRelative ?: Vector3f())
 
         val scaleRelative: Vector3f
-            get() = Vector3f(scale).add(parent?.scaleRelative ?: Vector3f())
+            get() = Vector3f(scale).add((parent?.scaleRelative?.sub(Vector3f(1f, 1f, 1f))) ?: Vector3f())
     }
 
     data class HitBox(
