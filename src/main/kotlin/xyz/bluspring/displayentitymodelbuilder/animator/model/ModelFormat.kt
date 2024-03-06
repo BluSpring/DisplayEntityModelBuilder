@@ -29,7 +29,30 @@ data class ModelFormat(
         var parent: ModelPart? = null
 
         val originRelative: Vector3f
-            get() = Vector3f(origin).add(parent?.originRelative ?: Vector3f())
+            get() {
+                val newOrigin = Vector3f(origin).add(parent?.originRelative ?: Vector3f())
+
+                val cosValueX = Mth.cos(rotationRelative.z())
+                val sinValueX = Mth.sin(rotationRelative.z())
+                val cosValueY = Mth.cos(rotationRelative.y())
+                val sinValueY = Mth.sin(rotationRelative.y())
+                val cosValueZ = Mth.cos(rotationRelative.x())
+                val sinValueZ = Mth.sin(rotationRelative.x())
+
+                // when X is rotated, Y and Z will be affected
+                // when Y is rotated, X and Z will be affected
+                /*
+                (newOrigin.x() * cosValueY) - (newOrigin.z() * sinValueY),
+                newOrigin.y(),
+                (newOrigin.z() * cosValueY) + (newOrigin.x() * sinValueY)
+                 */
+                // when Z is rotated, X and Y will be affected
+                return Vector3f(
+                    (newOrigin.x() * cosValueZ + cosValueY) + (newOrigin.y() * sinValueZ) - (newOrigin.z() * sinValueY),
+                    (newOrigin.y() * cosValueZ) + (newOrigin.x() * sinValueZ),
+                    (newOrigin.z() * cosValueY) + (newOrigin.x() * sinValueY)
+                )
+            }
 
         val posRelative: Vector3f
             get() = Vector3f(position).add(parent?.posRelative ?: Vector3f())
@@ -48,7 +71,7 @@ data class ModelFormat(
     )
 
     companion object {
-        fun deserialize(data: JsonObject): ModelFormat {
+        fun deserialize(id: ResourceLocation, data: JsonObject): ModelFormat {
             val parts = mutableListOf<ModelPart>()
 
             data.getAsJsonArray("shapes").forEach {
@@ -97,7 +120,7 @@ data class ModelFormat(
             val followParentTransforms = data.has("follow_parent_transforms") && data.get("follow_parent_transforms").asBoolean
 
             return ModelFormat(
-                ResourceLocation(data.get("id").asString),
+                id,
                 items,
                 parts,
                 hitBoxes,
