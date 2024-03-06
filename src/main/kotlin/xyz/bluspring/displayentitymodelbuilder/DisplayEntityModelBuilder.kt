@@ -125,7 +125,7 @@ class DisplayEntityModelBuilder : ModInitializer {
                         try {
                             val json = JsonParser.parseReader(resource.openAsReader()).asJsonObject
 
-                            val format = ModelFormat.deserialize(ResourceLocation(id.namespace, id.path.removeSuffix(".model.json").removeSuffix(".json")), json)
+                            val format = ModelFormat.deserialize(ResourceLocation(id.namespace, id.path.removeSuffix(".model.json").removeSuffix(".json").removePrefix("models/")), json)
                             Registry.register(AtrophyRegistry.MODEL_FORMAT, format.id, format)
                             logger.info("Registered model $id as ${format.id}")
                         } catch (e: Exception) {
