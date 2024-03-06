@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "icon": "assets/demb/icon.png",
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "xyz.bluspring.displayentitymodelbuilder.DisplayEntityModelBuilder"

@@ -1,7 +1,7 @@
 plugins {
-    id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'fabric-loom' version '1.5-SNAPSHOT'
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
 }
 
 version = project.mod_version
@@ -31,11 +31,9 @@ dependencies {
 
         // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation "net.fabricmc:fabric-language-kotlin:1.9.1+kotlin.1.8.10"
+    modImplementation "net.fabricmc:fabric-language-kotlin:1.10.17+kotlin.1.9.22"
 
-    implementation(include("org.joml:joml:1.10.5"))
-
-    modRuntimeOnly "maven.modrinth:sodium:mc1.20.1-0.5.2"
+    modRuntimeOnly "maven.modrinth:sodium:mc1.20.4-0.5.8"
 }
 
 processResources {
