@@ -171,10 +171,15 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
 
         displayEntity.moveTo(offsetPos)
 
+        val rot = if (format.followParentTransforms) part.rotationRelative else part.rotation
+
         (displayEntity as ItemDisplayAccessor).callSetItemStack(item.copy())
         (displayEntity as DisplayAccessor).callSetTransformation(Transformation(
             Vector3f(if (format.followParentTransforms) part.posRelative else part.position).div(16F),
-            TransformUtil.toQuaternion(if (format.followParentTransforms) part.rotationRelative else part.rotation),
+            if (format.useNewRotations)
+                TransformUtil.toNewQuaternion(rot)
+            else
+                TransformUtil.toQuaternion(rot),
             Vector3f(if (format.followParentTransforms) part.scaleRelative else part.scale),
             null
         ))

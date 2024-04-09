@@ -28,6 +28,13 @@ object TransformUtil {
         )
     }
 
+    fun toNewQuaternion(euler: Vector3f): Quaternionf {
+        val quaternion = Quaternionf()
+        quaternion.rotateXYZ(euler.x, euler.y, euler.z)
+
+        return quaternion
+    }
+
     fun mcToJoml(vec: Vec3): Vector3d {
         return Vector3d(vec.x, vec.y, vec.z)
     }

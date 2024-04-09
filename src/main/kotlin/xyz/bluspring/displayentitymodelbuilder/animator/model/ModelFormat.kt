@@ -15,7 +15,8 @@ data class ModelFormat(
     val parts: List<ModelPart>,
     val hitBoxes: List<HitBox>,
     val tags: List<String>,
-    val followParentTransforms: Boolean
+    val followParentTransforms: Boolean,
+    val useNewRotations: Boolean
 ) {
     data class ModelPart(
         val id: String,
@@ -118,6 +119,7 @@ data class ModelFormat(
             }
 
             val followParentTransforms = data.has("follow_parent_transforms") && data.get("follow_parent_transforms").asBoolean
+            val useNewRotations = data.has("use_new_rotations") && data.get("use_new_rotations").asBoolean
 
             return ModelFormat(
                 id,
@@ -125,7 +127,8 @@ data class ModelFormat(
                 parts,
                 hitBoxes,
                 tags,
-                followParentTransforms
+                followParentTransforms,
+                useNewRotations
             )
         }
 
