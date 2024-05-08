@@ -2,10 +2,12 @@ package xyz.bluspring.displayentitymodelbuilder.animator.model
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.component.CustomModelData
 import org.joml.Vector2f
 import org.joml.Vector3f
 
@@ -89,7 +91,7 @@ data class ModelFormat(
 
                 val stack = ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation(itemData.get("id").asString)), 1)
                 if (itemData.has("model"))
-                    stack.orCreateTag.putInt("CustomModelData", itemData.get("model").asInt)
+                    stack.set(DataComponents.CUSTOM_MODEL_DATA, CustomModelData(itemData.get("model").asInt))
 
                 items[key] = stack
             }
