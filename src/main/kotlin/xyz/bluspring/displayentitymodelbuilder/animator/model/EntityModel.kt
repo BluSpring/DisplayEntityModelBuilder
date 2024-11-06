@@ -4,10 +4,7 @@ import com.mojang.math.Transformation
 import net.minecraft.core.Rotations
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.Mth
-import net.minecraft.world.entity.Display
-import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.Interaction
+import net.minecraft.world.entity.*
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector3d
 import org.joml.Vector3f
@@ -129,7 +126,7 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
     }
 
     private fun loadHitBox(hitBox: ModelFormat.HitBox, spawnPos: Vector3d) {
-        val interaction = EntityType.INTERACTION.create(level)
+        val interaction = EntityType.INTERACTION.create(level, EntitySpawnReason.TRIGGERED)
 
         if (interaction == null) {
             logger.error("Failed to generate hitbox ID ${hitBox.id} for entity ${format.id}")
@@ -157,7 +154,7 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
     }
 
     private fun loadPart(part: ModelFormat.ModelPart, spawnPos: Vector3d) {
-        val displayEntity = EntityType.ITEM_DISPLAY.create(level)
+        val displayEntity = EntityType.ITEM_DISPLAY.create(level, EntitySpawnReason.TRIGGERED)
 
         if (displayEntity == null) {
             logger.error("Failed to generate part ID ${part.id} for entity ${format.id}")

@@ -17,7 +17,7 @@ object SpawnModelCommand : Command<CommandSourceStack> {
         val id = ResourceLocationArgument.getId(context, "model")
         val pos = context.source.position
 
-        val format = AtrophyRegistry.MODEL_FORMAT.get(id)
+        val format = AtrophyRegistry.MODEL_FORMAT.getValue(id)
 
         if (format == null) {
             context.source.sendFailure(Component.literal("Unknown model $id"))

@@ -19,8 +19,8 @@ class ReloadableMappedRegistry<T : Any>(key: ResourceKey<out Registry<T>>, lifec
         registrationInfo: RegistrationInfo
     ): Holder.Reference<T> {
         if (this.containsKey(resourceKey)) {
-            val original = super.get(resourceKey)
-            val ref = super.getHolderOrThrow(resourceKey)
+            val original = super.getValue(resourceKey)
+            val ref = super.getOrThrow(resourceKey)
 
             (this as MappedRegistryAccessor<T>).byId.remove(ref)
             this.byValue.remove(original)

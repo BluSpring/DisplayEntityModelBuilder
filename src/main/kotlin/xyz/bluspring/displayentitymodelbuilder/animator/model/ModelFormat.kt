@@ -89,7 +89,7 @@ data class ModelFormat(
             itemsData.keySet().forEach { key ->
                 val itemData = itemsData.getAsJsonObject(key)
 
-                val stack = ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(itemData.get("id").asString)), 1)
+                val stack = ItemStack(BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(itemData.get("id").asString)), 1)
                 if (itemData.has("model"))
                     stack.set(DataComponents.CUSTOM_MODEL_DATA, CustomModelData(itemData.get("model").asInt))
 
