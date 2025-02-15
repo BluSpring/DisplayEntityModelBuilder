@@ -7,7 +7,6 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.component.CustomModelData
 import org.joml.Vector2f
 import org.joml.Vector3f
 
@@ -90,8 +89,8 @@ data class ModelFormat(
                 val itemData = itemsData.getAsJsonObject(key)
 
                 val stack = ItemStack(BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(itemData.get("id").asString)), 1)
-                if (itemData.has("model"))
-                    stack.set(DataComponents.CUSTOM_MODEL_DATA, CustomModelData(itemData.get("model").asInt))
+                if (itemData.has("model_v2"))
+                    stack.set(DataComponents.ITEM_MODEL, ResourceLocation.parse(itemData.get("model_v2").asString))
 
                 items[key] = stack
             }
