@@ -69,7 +69,7 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
         this.rotations = rotations
 
         val origin = pos.toVector3f()
-        val angle = rotations.wrappedY
+        val angle = rotations.y
 
         // i hate degrees and radians so much
         val sinValue = Mth.sin(angle * Mth.DEG_TO_RAD)
@@ -81,7 +81,7 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
 
             entity.yRot = angle
 
-            entity.absMoveTo(
+            entity.snapTo(
                 origin.x + ((partPos.x * cosValue) - (partPos.z * sinValue)).toDouble(),
                 origin.y + partPos.y.toDouble(),
                 origin.z + ((partPos.z * cosValue) + partPos.x * sinValue).toDouble()
@@ -94,7 +94,7 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
 
             entity.yRot = angle
 
-            entity.absMoveTo(origin.x + ((hitBoxPos.x * cosValue) - (hitBoxPos.z * sinValue)).toDouble(), origin.y + hitBoxPos.y.toDouble(), origin.z + ((hitBoxPos.z * cosValue) + hitBoxPos.x * sinValue).toDouble())
+            entity.snapTo(origin.x + ((hitBoxPos.x * cosValue) - (hitBoxPos.z * sinValue)).toDouble(), origin.y + hitBoxPos.y.toDouble(), origin.z + ((hitBoxPos.z * cosValue) + hitBoxPos.x * sinValue).toDouble())
         }
 
         // this is more for breakpointing than anything really
@@ -136,7 +136,7 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
         val pos = Vector3f(hitBox.position).div(16F)
 
         val offsetPos = TransformUtil.jomlToMc(Vector3d(spawnPos).add(pos))
-        interaction.absMoveTo(offsetPos.x, offsetPos.y, offsetPos.z)
+        interaction.snapTo(offsetPos.x, offsetPos.y, offsetPos.z)
 
         val size = Vector3f(hitBox.size)
 
@@ -166,7 +166,7 @@ class EntityModel(val level: ServerLevel, val format: ModelFormat, val uuid: UUI
 
         val offsetPos = TransformUtil.jomlToMc(Vector3d(spawnPos).add(pos))
 
-        displayEntity.absMoveTo(offsetPos.x, offsetPos.y, offsetPos.z)
+        displayEntity.snapTo(offsetPos.x, offsetPos.y, offsetPos.z)
 
         val rot = if (format.followParentTransforms) part.rotationRelative else part.rotation
 
